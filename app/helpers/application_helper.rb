@@ -9,6 +9,6 @@ module ApplicationHelper
   end
 
   def status_class(status)
-    ['normal', true].include?(status) ? 'success' : 'danger'
+    status == 'normal' ? 'success' : 'danger'
   end
 end

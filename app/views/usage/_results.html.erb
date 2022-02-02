@@ -1,5 +1,5 @@
 <h3><%= display_date(Time.now) %></h3>
-<% unless @status == 'normal' && @inverters_ok%>
+<% unless @status == 'normal' && @inverter_status == 'normal'%>
     <div class="alert alert-danger" role="alert">
         ALERT: System is reporting an error.
     </div>
@@ -7,19 +7,21 @@
 <table class="table table-striped">
   <thead class="thead-light">
     <tr>
-        <th scope="col">Current Power</th>
+        <th scope="col">Current production</th>
         <th scope="col">Total Today</th>
-        <th scope="col">System status</th>
-        <th scope="col">All inverters normal</th>
+        <th scope="col">Power</th>
+        <th scope="col">System</th>
+        <th scope="col">Inverters</th>
         <th scope="col">Last report</th>
     </tr>
   </thead>
   <tbody>
     <tr>
+       <td><%= to_kw(@inverter_production)%> kW</td>
+       <td><%= to_kw(@result["energy_today"])%> kWh</td>
        <td><%= to_kw(@result["current_power"])%> kW</td>
-       <td><%= to_kw(@result["energy_today"])%> kW</td>
        <td class="<%= status_class(@status)%>"><%= @status %></td>
-       <td class="<%= status_class(@inverters_ok)%>"><%= @inverters_ok %></td>
+       <td class="<%= status_class(@inverter_status)%>"><%= @inverter_status %></td>
        <td><%= display_date(Time.parse(@result["last_report_at"])) %></td>
     </tr>
   </tbody>
