@@ -1,0 +1,5 @@
+enphase:
+  api_key: 'API_KEY_GOES_HERE'
+  user_id: 'USER_ID_GOES_HERE'
+  system_id: 'SYSTEM_ID_GOES_HERE'
+auth_refresh_mins: 10 # auto refresh the main stats page this often (minutes); nil for none

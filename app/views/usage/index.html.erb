@@ -1,0 +1,10 @@
+<% if Settings.auth_refresh_mins %>
+    <script language="JavaScript">
+        window.setTimeout(function () {
+        window.location.reload();
+        }, <%= 1000 * 60 * Settings.auth_refresh_mins %> ); // auto refresh every X minutes
+    </script>
+<% end %>
+<div id="results">
+    <%= render partial: 'results' %>
+</div>

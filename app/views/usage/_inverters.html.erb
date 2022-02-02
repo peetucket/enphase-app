@@ -1,0 +1,20 @@
+<table class="table table-striped">
+  <thead class="thead-light">
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Power</th>
+        <th scope="col">Status</th>
+        <th scope="col">Last report date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @active_inverters.each do |inverter| %>
+        <tr>
+            <td><%=inverter['id']%></td>
+            <td><%=inverter['power_produced']%> W</td>
+            <td class="<%= status_class(inverter['status'])%>"><%=inverter['status']%></td>
+            <td><%=display_date(Time.parse(inverter['last_report_date']))%></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>
