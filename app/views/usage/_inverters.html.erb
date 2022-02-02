@@ -10,7 +10,7 @@
   <tbody>
     <% @active_inverters.each do |inverter| %>
         <tr>
-            <td><%=inverter['id']%></td>
+            <td><%=inverter['serial_number']%></td>
             <td><%=inverter['power_produced']%> W</td>
             <td class="<%= status_class(inverter['status'])%>"><%=inverter['status']%></td>
             <td><%=display_date(Time.parse(inverter['last_report_date']))%></td>
