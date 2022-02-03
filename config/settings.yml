@@ -1,3 +1,4 @@
+token: '' # optional token that is required to be passed in the URL "token" query param to view the site
 enphase:
   api_key: 'API_KEY_GOES_HERE'
   user_id: 'USER_ID_GOES_HERE'
