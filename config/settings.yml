@@ -3,3 +3,5 @@ enphase:
   user_id: 'USER_ID_GOES_HERE'
   system_id: 'SYSTEM_ID_GOES_HERE'
 auth_refresh_mins: 10 # auto refresh the main stats page this often (minutes); nil for none
+latitude: 30.0 # latitude and longitude of current location, used to determine sunrise/sunet times
+longitude: 120.0 # page will not bother autorefreshing before sunrise or 1 hour after sunset

@@ -13,3 +13,8 @@
  *= require_tree .
  *= require_self
  */
+
+ .bigger-text {
+     font-size: 2.0rem;
+     font-weight: bold;
+ }

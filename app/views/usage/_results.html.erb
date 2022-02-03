@@ -1,4 +1,9 @@
-<h3><%= display_date(Time.now) %></h3>
+<h4><%= display_date(Time.now) %></h4>
+<% unless auto_refresh? %>
+    <div class="alert alert-info" role="alert">
+      Note: auto refresh disabled for the night.
+    </div>
+<% end %>
 <% unless @status == 'normal' && @inverter_status == 'normal'%>
     <div class="alert alert-danger" role="alert">
         ALERT: System is reporting an error.
@@ -17,8 +22,8 @@
   </thead>
   <tbody>
     <tr>
-       <td><%= to_kw(@inverter_production)%> kW</td>
-       <td><%= to_kw(@result["energy_today"])%> kWh</td>
+       <td class="bigger-text"><%= to_kw(@inverter_production)%> kW</td>
+       <td class="bigger-text"><%= to_kw(@result["energy_today"])%> kWh</td>
        <td><%= to_kw(@result["current_power"])%> kW</td>
        <td class="<%= status_class(@status)%>"><%= @status %></td>
        <td class="<%= status_class(@inverter_status)%>"><%= @inverter_status %></td>

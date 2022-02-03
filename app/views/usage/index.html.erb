@@ -1,4 +1,4 @@
-<% if Settings.auth_refresh_mins %>
+<% if Settings.auth_refresh_mins && auto_refresh?%>
     <script language="JavaScript">
         window.setTimeout(function () {
         window.location.reload();

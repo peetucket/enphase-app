@@ -204,6 +204,7 @@ GEM
     rake (13.0.6)
     redis (4.6.0)
     regexp_parser (2.2.0)
+    ruby-sun-times (0.1.5)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
     selenium-webdriver (3.142.7)
@@ -252,6 +253,7 @@ DEPENDENCIES
   rails (~> 6)
   rails-ujs
   redis (~> 4.0)
+  ruby-sun-times
   selenium-webdriver
   sprockets-rails
   sqlite3 (~> 1.4)
