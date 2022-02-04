@@ -12,19 +12,34 @@ module UsageHelper
     status == 'normal' ? 'success' : 'danger'
   end
 
-  # we don't need to bother auto refreshing the page before sun rise or 1 hour after sunset
-  def auto_refresh?
-    sun_times = SunTimes.new
-    # NOTE: use the configured time zone and ignore the actual date and use only times...
+  # we don't need to bother auto refreshing the page before sun rise or after sunset
+  def daytime?
+    # NOTE: use the configured time zone
     #  this gem seems to have an issue with computing sunrise/set times that span
     #  the date when coverting back from UTC, so we need to ignore the day itself and just use local times
-    sun_rise = sun_times.rise(Date.today, Settings.latitude, Settings.longitude).in_time_zone(Settings.time_zone)
-    sun_set = sun_times.set(Date.today, Settings.latitude, Settings.longitude).in_time_zone(Settings.time_zone)
     current_time = Time.now.utc.in_time_zone(Settings.time_zone)
-
-    sun_rise_today = Time.parse("#{Date.today} #{sun_rise.strftime("%H:%M:%S %z")}")
-    sun_set_today = Time.parse("#{Date.today} #{(sun_set+1.hour).strftime("%H:%M:%S %z")}")
-    current_time > sun_rise_today && current_time < sun_set_today
+    current_time > sunrise && current_time < sunset
   end
 
+  def sun_times
+    @sun_times ||= SunTimes.new
+  end
+
+  def sunrise
+    rise_time = sun_times.rise(Date.today, Settings.latitude, Settings.longitude).in_time_zone(Settings.time_zone)
+    Time.parse("#{Date.today} #{rise_time.strftime("%H:%M:%S %z")}")
+  end
+
+  def sunset
+    set_time = sun_times.set(Date.today, Settings.latitude, Settings.longitude).in_time_zone(Settings.time_zone)
+    Time.parse("#{Date.today} #{set_time.strftime("%H:%M:%S %z")}")
+  end
+
+  # refresh_internal in milliseconds if one is configured
+  def refresh_interval
+    # refresh interval is the configured number of minutes during the day or until next sunrise at night
+    return unless Settings.auth_refresh_mins
+
+    daytime? ? (Settings.auth_refresh_mins * 1000.0 * 60) : (24 - sunset.hour + sunrise.hour) * 1000.0 * 60 * 60
+  end
 end

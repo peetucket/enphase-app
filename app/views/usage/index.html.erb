@@ -1,8 +1,8 @@
-<% if Settings.auth_refresh_mins && auto_refresh?%>
+<% if refresh_interval %>
     <script language="JavaScript">
         window.setTimeout(function () {
         window.location.reload();
-        }, <%= 1000 * 60 * Settings.auth_refresh_mins %> ); // auto refresh every X minutes
+        }, <%= refresh_interval %> ); // time to auto refresh, periodically during daylight, until next sunrise at night
     </script>
 <% end %>
 <div id="results">
