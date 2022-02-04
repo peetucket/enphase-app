@@ -4,17 +4,16 @@
         <th scope="col">ID</th>
         <th scope="col">Power</th>
         <th scope="col">Status</th>
-        <th scope="col">Last report</th>
     </tr>
   </thead>
   <tbody>
     <% @active_inverters.each do |inverter| %>
         <tr>
-            <td><%=inverter['serial_number']%></td>
-            <td><%=inverter['power_produced']%> W</td>
-            <td class="<%= status_class(inverter['status'])%>"><%=inverter['status']%></td>
-            <td><%=display_date(Time.parse(inverter['last_report_date']))%></td>
+          <td><%=inverter['serial_number']%></td>
+          <td><%=inverter['power_produced']%> W</td>
+          <td class="<%= status_class(inverter['status'])%>"><%=inverter['status']%></td>
         </tr>
     <% end %>
   </tbody>
 </table>
+<p> Inverters last claimed update <%=display_date(Time.parse(@active_inverters.first['last_report_date']))%></p>
