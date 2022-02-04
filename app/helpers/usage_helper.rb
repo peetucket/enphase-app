@@ -15,13 +15,16 @@ module UsageHelper
   # we don't need to bother auto refreshing the page before sun rise or 1 hour after sunset
   def auto_refresh?
     sun_times = SunTimes.new
-    # NOTE: this gem seems to have an issue with the sun rise/set days being wrong if the UTC
-    #  times span the current day for the time zone you are in ...
-    #  my kludgy fix for PST is just to ask for yesterday's sun rise and tomorrow's sunset
-    #  (though this would break things in other timezones)
-    sun_rise = sun_times.rise(Date.yesterday, Settings.latitude, Settings.longitude)
-    sun_set = sun_times.set(Date.tomorrow, Settings.latitude, Settings.longitude)
-    Time.zone.now > sun_rise && Time.zone.now < sun_set+1.hour
+    # NOTE: use the configured time zone and ignore the actual date and use only times...
+    #  this gem seems to have an issue with computing sunrise/set times that span
+    #  the date when coverting back from UTC, so we need to ignore the day itself and just use local times
+    sun_rise = sun_times.rise(Date.today, Settings.latitude, Settings.longitude).in_time_zone(Settings.time_zone)
+    sun_set = sun_times.set(Date.today, Settings.latitude, Settings.longitude).in_time_zone(Settings.time_zone)
+    current_time = Time.now.utc.in_time_zone(Settings.time_zone)
+
+    sun_rise_today = Time.parse("#{Date.today} #{sun_rise.strftime("%H:%M:%S %z")}")
+    sun_set_today = Time.parse("#{Date.today} #{(sun_set+1.hour).strftime("%H:%M:%S %z")}")
+    current_time > sun_rise_today && current_time < sun_set_today
   end
 
 end

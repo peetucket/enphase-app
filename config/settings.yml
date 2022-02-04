@@ -4,5 +4,6 @@ enphase:
   user_id: 'USER_ID_GOES_HERE'
   system_id: 'SYSTEM_ID_GOES_HERE'
 auth_refresh_mins: 10 # auto refresh the main stats page this often (minutes); nil for none
-latitude: 30.0 # latitude and longitude of current location, used to determine sunrise/sunet times
-longitude: 120.0 # page will not bother autorefreshing before sunrise or 1 hour after sunset
+latitude: 37.7 # latitude and longitude of current location, used to determine sunrise/sunet times
+longitude: -122.4 # page will not bother autorefreshing before sunrise or 1 hour after sunset
+time_zone: 'Pacific Time (US & Canada)' # your time zone, see https://api.rubyonrails.org/classes/ActiveSupport/TimeZone.html
