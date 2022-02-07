@@ -10,10 +10,10 @@
     <% @active_inverters.each do |inverter| %>
         <tr>
           <td><%=inverter['serial_number']%></td>
-          <td><%=inverter['power_produced']%> W</td>
+          <td><%=inverter['power_produced']['value']%> <%=inverter['power_produced']['units']%></td>
           <td class="<%= status_class(inverter['status'])%>"><%=inverter['status']%></td>
         </tr>
     <% end %>
   </tbody>
 </table>
-<p> Inverters last claimed update <%=display_date(Time.parse(@active_inverters.first['last_report_date']))%></p>
+<p> Inverters last claimed update: <%=display_date(Time.parse(@active_inverters.first['last_report_date']))%></p>
