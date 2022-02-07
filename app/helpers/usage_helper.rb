@@ -38,8 +38,9 @@ module UsageHelper
   # refresh_internal in milliseconds if one is configured
   def refresh_interval
     # refresh interval is the configured number of minutes during the day or until next sunrise at night
-    return unless Settings.auth_refresh_mins
+    return unless Settings.auto_refresh_mins
 
-    daytime? ? (Settings.auth_refresh_mins * 1000.0 * 60) : (24 - sunset.hour + sunrise.hour) * 1000.0 * 60 * 60
+    # preset refresh during the day; after sunset, a long interval until approximately sunrise the next morning
+    daytime? ? (Settings.auto_refresh_mins * 1000.0 * 60) : (24 - sunset.hour + sunrise.hour) * 1000.0 * 60 * 60
   end
 end

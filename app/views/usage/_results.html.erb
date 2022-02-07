@@ -1,12 +1,12 @@
 <h4><%= display_date(Time.now) %></h4>
-<% unless daytime? %>
-    <div class="alert alert-info" role="alert">
-      Note: auto refresh disabled for the night.
-    </div>
-<% end %>
 <% unless @status == 'normal' && @inverter_status == 'normal'%>
     <div class="alert alert-danger" role="alert">
         ALERT: System is reporting an error.
+    </div>
+<% end %>
+<% if Settings.auto_refresh_mins && !daytime? %>
+    <div class="alert alert-info" role="alert">
+    Note: auto refresh disabled for the night.
     </div>
 <% end %>
 <table class="table table-striped">
@@ -27,7 +27,8 @@
        <td><%= to_kw(@result["current_power"])%> kW</td>
        <td class="<%= status_class(@status)%>"><%= @status %></td>
        <td class="<%= status_class(@inverter_status)%>"><%= @inverter_status %></td>
-       <td><%= display_date(Time.parse(@result["last_report_at"])) %></td>
+       <td><%= display_date(Time.parse(@result["last_report_at"])) %><br />
+          <%= "Auto refresh every #{Settings.auto_refresh_mins} minutes" if Settings.auto_refresh_mins && daytime? %></td>
     </tr>
   </tbody>
 </table>
